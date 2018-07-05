@@ -1,0 +1,1 @@
+function [h1,h2]=pk_fndax% find axes% 10-oct-94 smbh= get(gcf,'children');		% get handles to both axesfor i=1:length(h),	t= get(h(i),'type');	if strcmp(t,'axes'),		ax= get(h(i),'pos');		if ax(1) == 0,			h1=h(i);		elseif ax(1) == 0.1,			h2=h(i);		end	endend

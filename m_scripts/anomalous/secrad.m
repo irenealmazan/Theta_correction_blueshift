@@ -1,0 +1,1 @@
+function radians=secrad(seconds)% radians=secrad(seconds)% convert arc-seconds to radians% SMB 4-24-00 bren@slac.stanford.eduradians= seconds*pi/(180*3600);

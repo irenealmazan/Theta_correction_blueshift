@@ -1,0 +1,1 @@
+function array=indexm(index,j)% Usage: array=indexm(index,j);% Converts index returned by sort.m to matrix indices% j=1   used sort of columns % j=2   used sort of rows             18-Nov-94 AM[a,b]=size(index);if j==1	array=index+ones([a 1])*(a.*[0:b-1]); else	array=a.*index-[a-1:-1:0]'*ones([1 b]);end

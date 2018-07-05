@@ -1,0 +1,1 @@
+function fsum=pk_sqvt(x,lambda);% f= pk_qvt(x,lambda)% Calculate sum of up to 4 peaks plus sloping background% 5-3-94 SMB (Bren@SLAC.stanford.edu)leng=length(lambda);fsum= zeros(size(x));npeaks= floor(leng/4);for i=1:npeaks,	base=(i-1)*4;	lam(1:4)= lambda(base+1:base+4);	f=pk_svoigt(x,lam);	fsum= fsum+ f;endfsum=fsum+lambda(leng-1)+x.*lambda(leng);

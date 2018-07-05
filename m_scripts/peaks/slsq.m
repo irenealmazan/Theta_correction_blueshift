@@ -1,0 +1,1 @@
+function slsq(x_array,y_array)% function lsq(x_array,y_array)% Entry routine for peakfit, which uses leasqr% 5-2-94 SMB (Bren@SLAC.stanford.edu)global FITX FITDYFITX=x_array(:); FITDY=y_array(:);already= get_fig('PEAKFIT');if already== 1	speakfit('new');else	speakfit;end

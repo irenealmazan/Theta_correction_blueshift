@@ -1,0 +1,1 @@
+function [alpha,beta]=index2ab(refract_index)% [alpha,beta]=index2ab(refract_index)% convert refractive index into component% alpha (real) and beta (imaginary) parts% 20-FEB-02 SMB bren@slac.stanford.edualpha= 1-real(refract_index);beta= -imag(refract_index);

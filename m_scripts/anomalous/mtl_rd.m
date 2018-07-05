@@ -1,0 +1,1 @@
+function [density,zed_fract]=mtl_rd( name);% [rho,comps]=mtl_rd( name);% parse material file name and read% in values% 18-Nov-95 SMB% SSRL/SLACglobal DISK_PATH DISK_DELIM DISK_END ANOMAL_FILESfilename = [DISK_PATH,ANOMAL_FILES,DISK_DELIM,'mtl_dir',DISK_END,name,'.mat'];if exist( filename ) == 2    load(filename);else    error( 'Material data file not found' )end

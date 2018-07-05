@@ -1,0 +1,1 @@
+function chisq=chisqr(data,fit,constrain,wt)% calculate chisqr% lambda is vector of fitting parameters% wt vector of weights; defaults to 1% SMB 14-JUN-1997 SSRL/SLACif nargin==3,wt=ones(size(data));endparm_len= sum(round(1000 .*constrain));chisq= sum(((data-fit).*wt./fit).^2)/(length(data)-parm_len);

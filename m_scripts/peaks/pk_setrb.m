@@ -1,0 +1,1 @@
+function pk_setrb(i)% set an individual radio button on, turning others off% 5-2-94 SMB (Bren@SLAC.stanford.edu)h=flipud(sort(findobj(gcf,'style','radiobutton')));for j=1:10,	set(h(j),'Value',0);endset(h(i),'Value',1);

@@ -1,0 +1,1 @@
+function const=fdegrad% convert from degrees to radiansconst= 0.0174533;

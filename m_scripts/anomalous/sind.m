@@ -1,0 +1,1 @@
+function y = sind(x)% Take sine of angle in degreesfact= pi/180;y= sin(fact*x);

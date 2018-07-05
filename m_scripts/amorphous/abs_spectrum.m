@@ -1,0 +1,1 @@
+function y=abs_spectrum(e,p)% Calculated shape of absorption; used by ABSFIT% Todd Hufnagel (hufnagel@jhu.edu), Johns Hopkins Universityglobal MURHO1 MURHO2y=p(1)*MURHO1+p(2)*MURHO2+p(3)+p(4).*e.^(-1)+p(5).*e.^(-2)+p(6).*e.^(-3);

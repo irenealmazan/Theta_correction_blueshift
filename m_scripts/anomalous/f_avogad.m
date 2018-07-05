@@ -1,0 +1,1 @@
+function const=f_avogad% Avogadro's number (atoms/mole)const= 6.0221367e23;

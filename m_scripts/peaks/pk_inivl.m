@@ -1,0 +1,1 @@
+% Initialize stuff for peakfit% 5-2-94 SMB (Bren@SLAC.stanford.edu)% 8-25-96 AM  removed for-loop	pk_setrb(1);	set(findobj(gcf,'style','checkbox'),'Value',0);	set(findobj(gcf,'style','edit'),'String','');	set(findobj(gcf,'tag','ed18'),'String',num2str(0));  % background	set(findobj(gcf,'tag','ed17'),'String',num2str(0));  % slope

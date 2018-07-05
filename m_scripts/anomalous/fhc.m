@@ -1,0 +1,1 @@
+function const= fhc% conversion from wavelength in angstroms% to energy in eVconst= 12398.4244;
