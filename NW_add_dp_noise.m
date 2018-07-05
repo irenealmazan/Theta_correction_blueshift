@@ -16,10 +16,11 @@ if (noiseflag)
     phase_NW = angle(fftshift(fftn(fftshift(NW))));
     noise_NW = fftshift(ifftn(fftshift(sqrt(noise_data).*exp(1i*phase_NW))));
     
-    fig_num = 401;
-    dimension = '2';
-    DisplayResults.compare_two_objects(NW,noise_NW,'Original object','Compatible object',[50 80 50 80],64,dimension,fig_num);
-
+    if plotResults
+        fig_num = 401;
+        dimension = '2';
+        DisplayResults.compare_two_objects(NW,noise_NW,'Original object','Compatible object',[50 80 50 80],64,dimension,fig_num);
+    end
 end
 %%
 
@@ -42,29 +43,33 @@ if(usesimI)
     end
 end
 
-figure(7); 
-clf; setfigsize(gcf, 800,400);
-colormap jetvar;
-
-ca = [0 2];
-for ii=1:numel(data_exp)
-    subplot(121);
-    imagesc( (data_exp(ii).I));axis image;colorbar;
-   
-    drawnow;
-    subplot(122);
-    imagesc( (data_exp(ii).simI)); axis image;colorbar;
-    title(num2str(ii));
-  
-    display(['dth: ' num2str(data_exp(ii).dth_nominal)]);
-    pause(.5);
+if plotResults
+    figure(7);
+    clf; setfigsize(gcf, 800,400);
+    colormap jetvar;
+    
+    ca = [0 2];
+    for ii=1:numel(data_exp)
+        subplot(121);
+        imagesc( (data_exp(ii).I));axis image;colorbar;
+        
+        drawnow;
+        subplot(122);
+        imagesc( (data_exp(ii).simI)); axis image;colorbar;
+        title(num2str(ii));
+        
+        display(['dth: ' num2str(data_exp(ii).dth_nominal)]);
+        pause(.5);
+    end
 end
 
     
 % plot rocking curve: 
-if newSample
-    DisplayResults.show_rocking_curve(delta_thscanvals,rock_curve_3D/mn * mncntrate,'new',8,'k','true using 3D FT');
-    DisplayResults.show_rocking_curve(delta_thscanvals+dth_disp',rock_curve_noise,'hold',8,'r','true using 2D FT');
-else
-    DisplayResults.show_rocking_curve(delta_thscanvals+dth_disp',rock_curve_noise,'new',8,'r','true using 2D FT');
+if plotResults
+    if newSample
+        DisplayResults.show_rocking_curve(delta_thscanvals,rock_curve_3D/mn * mncntrate,'new',8,'k','true using 3D FT');
+        DisplayResults.show_rocking_curve(delta_thscanvals+dth_disp',rock_curve_noise,'hold',8,'r','true using 2D FT');
+    else
+        DisplayResults.show_rocking_curve(delta_thscanvals+dth_disp',rock_curve_noise,'new',8,'r','true using 2D FT');
+    end
 end

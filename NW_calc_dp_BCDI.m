@@ -29,7 +29,10 @@ end
     
  [ simI,rock_curve,Proj_vol,FT_Proj_vol,Qterm] = DiffractionPatterns.calc_dp(dq_shift_real,probe,NW,X,Y,Z);
 
-figure(27);clf;
+ if plotResults
+     figure(27);clf;
+ end
+ 
 for ii = 1:numel(delta_thscanvals)
     
      mxI(ii) = max(simI(ii).Psi_mod(:));
@@ -48,24 +51,26 @@ for ii = 1:numel(delta_thscanvals)
     data_exp(ii).rock = rock_curve(ii);
     
     % plot:
-    if(mod(ii,1)==0) 
-        display(['simulating dp, ' num2str(ii) ' of ' num2str(numel(data_exp))]); 
-        subplot(121); 
-        imagecomp(squeeze(Proj_vol(ii).Psij)); 
-        %imagecomp(NW(:,:,ii)); 
-        title('Object')
-        colorbar;
-        axis image; 
-        
-        subplot(122); 
-        imagesc(simI(ii).Psi_mod);
-        axis image;
-        colorbar;
-        title([' ii = ' num2str(ii)]);
-        
-        pause(.5);
-        
-        drawnow;
+    if plotResults
+        if(mod(ii,1)==0)
+            display(['simulating dp, ' num2str(ii) ' of ' num2str(numel(data_exp))]);
+            subplot(121);
+            imagecomp(squeeze(Proj_vol(ii).Psij));
+            %imagecomp(NW(:,:,ii));
+            title('Object')
+            colorbar;
+            axis image;
+            
+            subplot(122);
+            imagesc(simI(ii).Psi_mod);
+            axis image;
+            colorbar;
+            title([' ii = ' num2str(ii)]);
+            
+            pause(.5);
+            
+            drawnow;
+        end
     end
 
    
@@ -74,15 +79,17 @@ end
 middpind = round(numel(data_exp)/2);
 
 display(['simulating dp, ' num2str(middpind) ' of ' num2str(numel(data_exp))]);
-subplot(221);
-imagecomp(squeeze(Proj_vol(middpind).Psij));
-axis image;
 
-subplot(221);
-imagesc(simI(middpind).Psi_mod);
-axis image;
-title([' ii = ' num2str(middpind)]);
-
-
-drawnow;
-
+if plotResults
+    subplot(221);
+    imagecomp(squeeze(Proj_vol(middpind).Psij));
+    axis image;
+    
+    subplot(221);
+    imagesc(simI(middpind).Psi_mod);
+    axis image;
+    title([' ii = ' num2str(middpind)]);
+    
+    
+    drawnow;
+end

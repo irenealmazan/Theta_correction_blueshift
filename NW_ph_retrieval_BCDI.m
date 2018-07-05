@@ -99,9 +99,10 @@ else
     beta_theta = [beta_theta;zeros(round(Niter_rho/freq_pos),1)];
 
 end
- 
-DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1),beta_rho(1),norm_grad_theta(1),beta_theta(1),'Ini');
 
+if plotResults
+    DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1),beta_rho(1),norm_grad_theta(1),beta_theta(1),'Ini');
+end
 
 
 %% Iterative engine:
@@ -128,8 +129,9 @@ for nrho = nrho_vect
         rho_store(nrho).rho_hex = squeeze(rho(100,:,:));
         rho_store(nrho).beta_rho = beta_rho(nrho);
         
-        DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1:nrho),beta_rho(1:nrho),norm_grad_theta(1:cnt_ntheta-1),beta_theta(1:cnt_ntheta-1),'rho');
-      
+        if plotResults
+            DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1:nrho),beta_rho(1:nrho),norm_grad_theta(1:cnt_ntheta-1),beta_theta(1:cnt_ntheta-1),'rho');
+        end
     end
 
      % THETA ANNEALING
@@ -152,12 +154,18 @@ for nrho = nrho_vect
         [err] = DiffractionPatterns.calc_error_multiangle(probe, rho, data_exp,angles_list,ki_o,kf_o,X,Y,Z);
         fprintf('     error: %4.4d \n', err);
         errlist = [errlist err];
-
+       
         % plot
-        DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1:nrho),beta_rho(1:nrho),norm_grad_theta(1:cnt_ntheta),beta_theta(1:cnt_ntheta),'theta');
-
+        if plotResults
+            DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1:nrho),beta_rho(1:nrho),norm_grad_theta(1:cnt_ntheta),beta_theta(1:cnt_ntheta),'theta');
+        end
 
         cnt_ntheta = cnt_ntheta + 1;
+    end
+    
+    if mod(nrho,freq_store) == 0
+        save('./results.mat');
+        display(['saving at iteration ' num2str(nrho)])
     end
 
     %}

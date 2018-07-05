@@ -11,7 +11,7 @@ classdef InitializeFunctions
                 mplane_spacing,aplane_spacing,q_mplane,q_aplane,q_cplane,...
                 zpdiam,outerzone,bsdiam,binaryprobe_flag,...
                 meshdata,cutrad,edgepad,mncntrate,Niter_rho, Niter_pos,...
-                Niter_theta,freq_pos,freq_restart,tau_backtrack_rho,beta_ini_rho,...
+                Niter_theta,freq_pos,freq_store,freq_restart,tau_backtrack_rho,beta_ini_rho,...
                 counter_max_rho,tau_backtrack_theta,beta_ini_theta,counter_max_theta,ERflag,percent_jitter] = NW_experimental_phretrieval_parameters()
             
             % In this script we initialize the values of the experimental set-up and
@@ -64,7 +64,7 @@ classdef InitializeFunctions
             Niter_theta = 1;
             freq_pos = 1;
             %freq_rho = 10;
-            %freq_store = 10;
+            freq_store = 100;
             
             % Beta adaptative step parameters and conjugated gradient restart parameter:
             freq_restart = 20;

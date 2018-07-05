@@ -31,21 +31,24 @@ corners = (Ry_del*corners')';
 
 corners = (Rx*corners')';
 
-figure(1);clf;
-hold on;
-K=convhulln(corners);
-T=delaunayn(corners,{'Qt','Qbb','Qc','Qz'});
-p=trisurf(K, corners(:,1), corners(:,2), corners(:,3));
-set(p,'FaceColor','red','EdgeColor','black');
-alpha(.3);
-%set(gca, 'Projection', 'perspective');
-axis equal
-xlabel('x (microns)'); ylabel('y'); zlabel('z');
-hold on; 
-quiver3(0,0,0, 0, 0, .2);
-drawnow
 
-hold off;
+if plotResults
+    figure(1);clf;
+    hold on;
+    K=convhulln(corners);
+    T=delaunayn(corners,{'Qt','Qbb','Qc','Qz'});
+    p=trisurf(K, corners(:,1), corners(:,2), corners(:,3));
+    set(p,'FaceColor','red','EdgeColor','black');
+    alpha(.3);
+    %set(gca, 'Projection', 'perspective');
+    axis equal
+    xlabel('x (microns)'); ylabel('y'); zlabel('z');
+    hold on;
+    quiver3(0,0,0, 0, 0, .2);
+    drawnow
+    
+    hold off;
+end
 
 %%
 
@@ -81,8 +84,9 @@ img = img.*exp(i*dispfield);
 [rock_curve_3D] = DiffractionPatterns.calc_rock_curve_3DFT(img,addNWstrain,mncntrate);
 [img_comp] = DiffractionPatterns.calc_compatible_rho(img,addNWstrain);
 
-DisplayResults.show_compatible_object(img,img_comp,[32],3,400);
-
+if plotResults
+    DisplayResults.show_compatible_object(img,img_comp,[32],3,400);
+end
 
 
 NWsfzb = img;
@@ -100,22 +104,24 @@ if (addNWsf)
     sfamp = round(rand(size(sfboundaries))*2);
     sfamp(find(sfamp==2))=1;
     
-    hold on; h1=[]; 
-    for ii=2:numel(sfboundaries)
-        
-        ind = find(Tsf>sfboundaries(ii-1) & Tsf<=sfboundaries(ii) & abs(NWbase)==1);
-        display(['found ' num2str(numel(ind)) ' in SF boundary']);
-        
-        NWsfzb(ind) = img(ind)*exp(i*sfphases(ii)) * sfamp(ii);
-        %NWsfzb(ind) = NW(ind)*exp(i*(sfphases2(ii)+sfphases2(ii-1))) * sfamp(ii);
-        img(ind) = img(ind)*exp(i*sfphases(ii));
-        
-        delete(h1);
-        temp = zeros(size(img)); temp(ind) = sfamp(ii);
-        h1 = di(temp, -.5, 'g', X,Y,Z);
-        pause(.1);
-        
+    if plotResults
+        hold on; h1=[];
+        for ii=2:numel(sfboundaries)
+            
+            ind = find(Tsf>sfboundaries(ii-1) & Tsf<=sfboundaries(ii) & abs(NWbase)==1);
+            display(['found ' num2str(numel(ind)) ' in SF boundary']);
+            
+            NWsfzb(ind) = img(ind)*exp(i*sfphases(ii)) * sfamp(ii);
+            %NWsfzb(ind) = NW(ind)*exp(i*(sfphases2(ii)+sfphases2(ii-1))) * sfamp(ii);
+            img(ind) = img(ind)*exp(i*sfphases(ii));
+            
+            delete(h1);
+            temp = zeros(size(img)); temp(ind) = sfamp(ii);
+            h1 = di(temp, -.5, 'g', X,Y,Z);
+            pause(.1);
+            
+        end
+        hold off;
     end
-    hold off;
     
 end

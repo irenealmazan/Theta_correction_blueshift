@@ -3,13 +3,13 @@ global d2_bragg X Y Z ki_o kf_o
 warning off;
 
 
-addpath(genpath('/Users/ialmazn/Box Sync/Nanowire_ptychography/NSLS II/NSLS II March 2017/Analysis_end_of_beamtime'));
-addpath(genpath('/Users/ialmazn/Documents/MATLAB/ptycho/m_scripts/'))
+%addpath(genpath('/Users/ialmazn/Box Sync/Nanowire_ptychography/NSLS II/NSLS II March 2017/Analysis_end_of_beamtime'));
+addpath(genpath('./m_scripts/'))
 addpath(genpath('./calc_functions'));
-addpath(genpath('./display_functions'));
+%addpath(genpath('./display_functions'));
 
 %% Flags:
-noiseflag = 1; 
+noiseflag = 0; 
 if(noiseflag) 
     display('ADDING NOISE')
 else
@@ -24,7 +24,13 @@ else
 end
 
 newSample = 0; 
-if(newSample) display('MAKING A NEW SAMPLE');end
+if(newSample) 
+    display('MAKING A NEW SAMPLE')
+else
+    display('USING AN ALREADY EXISTING SAMPLE')
+    
+end
+
 whichSample = 'Random'; %swith to 'Random" to use Sid's code and to 'Hexagone' for an hexagonal sample
 display(['MAKING A ' whichSample ' SAMPLE'])
 
@@ -55,7 +61,14 @@ end
 
 
 plotdqshift = 0; 
-if(plotdqshift) display('PLOTTING DQ ROCKING CURVE'); end
+if(plotdqshift) 
+    display('PLOTTING DQ ROCKING CURVE'); 
+end
+
+plotResults = 0;
+if(plotResults)
+   display('PLOTTING RESULTS') 
+end
 
 usesimI = 1; 
 if(usesimI) 
@@ -64,7 +77,7 @@ else
     display('USING REAL DATA')
 end
 
-initialGuess = 0;
+initialGuess = 1;
 switch initialGuess 
     case 0
          display('USING TRUE OBJECT');
@@ -83,7 +96,7 @@ if flagContinue == 0
         mplane_spacing,aplane_spacing,q_mplane,q_aplane,q_cplane,...
         zpdiam,outerzone,bsdiam,binaryprobe_flag,...
         meshdata,cutrad,edgepad,mncntrate,Niter_rho, Niter_pos,...
-        Niter_theta,freq_pos,freq_restart,tau_backtrack_rho,beta_ini_rho,...
+        Niter_theta,freq_pos,freq_store,freq_restart,tau_backtrack_rho,beta_ini_rho,...
         counter_max_rho,tau_backtrack_theta,beta_ini_theta,counter_max_theta,ERflag,percent] = ...
         InitializeFunctions.NW_experimental_phretrieval_parameters();
     
@@ -95,13 +108,11 @@ if flagContinue == 0
         case 1010 %SF
             [pixsize,lam,Npix,detdist,d2_bragg,depth,defocus,th,del,gam,...
                 thscanvals,alphavals,phivals,...
-                delta_thscanvals] = InitializeFunctions.NW_scatgeo_1010();
-            %NW_scatgeo_1010;
+                delta_thscanvals] = InitializeFunctions.NW_scatgeo_1010();          
         case 2110 %strain
             [pixsize,lam,Npix,detdist,d2_bragg,depth,defocus,th,del,gam,...
                 thscanvals,alphavals,phivals,...
-                delta_thscanvals] = InitializeFunctions.NW_scatgeo_2110();
-            %NW_scatgeo_2110;
+                delta_thscanvals] = InitializeFunctions.NW_scatgeo_2110();          
     end
     
     
@@ -130,8 +141,10 @@ if flagContinue == 0
         NW  = abs(img);
     end
     
+    if plotResults
+        NW_plot_diff_vectors_sample_BCDI;
+    end
     
-    NW_plot_diff_vectors_sample_BCDI;
     probe = ones(size(X));
     
     %% Calculate diffraction patterns

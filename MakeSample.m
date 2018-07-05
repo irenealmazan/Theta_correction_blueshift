@@ -35,43 +35,6 @@ pts = pts + repmat( round(arr/2), N+1, 1 );
 [rock_curve_3D,intens] = DiffractionPatterns.calc_rock_curve_3DFT(img,addNWstrain,mncntrate);
 [img_comp] = DiffractionPatterns.calc_compatible_rho(img,addNWstrain);
 
-DisplayResults.compare_two_objects(img0,img_comp,'Orignal object','Compatible object',[65],'3',400);
-
-%{
-% subplot( 1, 2, 1 );
-figure; 
-% patch( isosurface( smooth3( img, 'gaussian', 7 ) ), 'EdgeColor', 'none', 'FaceColor', 'y' ); 
-isosurface( ...
-    X,Y,Z, ...
-    smooth3( abs( rho ), 'gaussian', 9 ), 0.5, ...
-    smooth3( angle( rho ), 'gaussian', 9 ) ); 
-axis square; axis tight; axis off; colorbar; lighting gouraud;
-% axis image; 
-% axis( [ 0 arr(1) 0 arr(2) 0 arr(3) ] );
-camlight;
-lighting gouraud;
-% axis off;
-
-figure;
-isosurface( ...
-    X,Y,Z, ...
-    smooth3( intens, 'gaussian', 15 ));
-axis square; axis tight; axis off; colorbar; lighting gouraud;
-% axis image; 
-% axis( [ 0 arr(1) 0 arr(2) 0 arr(3) ] );
-camlight;
-lighting gouraud;
-% axis off;
-
-
-% subplot( 1, 2, 2 );
-figure; 
-imagesc( abs( fk(:,:,35) ) );
-axis image; 
-colormap( 'hot' );
-colorbar; 
-
-
-% clearvars -except img intens
-% save( '/home/smaddali/ANL/simulatedCrystals/crystal_1.mat' );
-%}
+if plotResults
+    DisplayResults.compare_two_objects(img0,img_comp,'Orignal object','Compatible object',[65],'3',400);
+end
