@@ -49,14 +49,14 @@ switch addAngJitter
         display('ADDING AN ALREADY GENERATED ANGULAR JITTER')    
 end
 
-smoothSupportFlag = 1;
+smoothSupportFlag = 2;
 switch (smoothSupportFlag)
     case 0
         display('USING A SMOOTH SUPPORT')
     case 1
         display('USING EXACT SUPPORT')
     case 2
-        display('USING THRESHOLD SUPPORT')
+        display('USING ER_HIO SUPPORT')
 end
 
 
@@ -87,7 +87,12 @@ switch initialGuess
        display('USING RANDOM INITIAL GUESS');
 end
 
-flagContinue = 0;
+flagErrorCompare = 0;
+if flagErrorCompare
+   display('Comparison between ER/HIO and ER2DFT errors') 
+end
+
+flagContinue = 1;
 if flagContinue == 0
     display('STARTING A NEW PHASE RETRIEVAL OPERATION');
     

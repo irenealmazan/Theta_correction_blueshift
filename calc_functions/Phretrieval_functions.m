@@ -7,7 +7,7 @@ classdef Phretrieval_functions
     
     methods(Static)
         
-        function [original_object,sup,sup_ini,dp] = prepare_data_ER_HIO(rho,data_exp)
+        function [original_object,sup,dp] = prepare_data_ER_HIO(rho,data_exp)
             % this function prepares the data for test 4 conditions: 2DFT dp
             % from original object, no noise and shapr support
             
@@ -18,23 +18,13 @@ classdef Phretrieval_functions
             
             sup(range,range,range) = ones(numel(range),numel(range),numel(range));
             
-            sup_ini = sup;%abs(original_object);
             
             for ii=1:numel(data_exp)
-                dp(:,:,ii) = data_exp(ii).simI;
+                dp(:,:,ii) = data_exp(ii).I;
             end
         end
 
-        function [newobj,err] = erred3_and_calcerror_2DFT(dp,support_new,er_iter,update_iter,newobj,probe,data_exp,delta_thscanvals,ki_o,kf_o,X,Y,Z)
-            
-            [retrphase,newobj] = erred3( sqrt(dp), support_new, er_iter, update_iter, newobj);
-            
-            finalobj = ifftn(newobj.dp);
-            err = DiffractionPatterns.calc_error_multiangle(probe, finalobj,data_exp ,delta_thscanvals,ki_o,kf_o,X,Y,Z)
-            
-            
-        end
-        
+         
         function [support] = make_support(corners,facet_spacing,edgepad)
             % This function calculates the dqshift connecting the diffraction
             % patterns at th = thBragg and at th = thBragg + dth

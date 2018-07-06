@@ -77,7 +77,7 @@ classdef DiffractionPatterns
             
         end
                 
-        function [errtot] = calc_error_multiangle(probe, rho, data,angle_list,ki,kf,X,Y,Z)
+       function [errtot] = calc_error_multiangle(probe, rho, data,angle_list,ki,kf,X,Y,Z)
             % This function calculates the diffracted intensities
             % differences for the set of data in the the structure "data"
             
@@ -96,10 +96,31 @@ classdef DiffractionPatterns
                 errtot = errtot + err;
             end
             
+            errtot = errtot/numel(data);
             
-            
-        end
+       end
         
+       function [err] = calc_error_3DFT(dp,rho)
+           
+           A = fftshift(fftn(fftshift(rho)));
+           
+           %we apply the phase guess to the measured dp amplitudes
+           B = abs(dp) .* exp(sqrt(-1) * angle(A));
+           
+           %length(find(angle(A) ~= angle(B)))
+           
+           %we bring the new guess to real space via IFT
+           C = ifftn(B);
+                      
+                    
+           %return to dp space and apply the
+           A = fftn(C);
+           
+          err = sum(sum(sum( (abs(A)-abs(dp)).^2))) / numel(dp) ;
+
+           
+       end
+       
         function [Pmrho,Psi_mod] = InvFT_2D(rho,dth,probe,ki_o,kf_o,X,Y,Z)
             % This function makes the inverse Fourier transform (from the
             % reciprocal space to the real space, for each slice of the imput

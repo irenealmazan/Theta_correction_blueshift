@@ -7,7 +7,7 @@ B=zeros(size(dp));
 C=zeros(size(dp));
 D=zeros(size(dp));
 
-ssqexpamp = sum(sum(sum(abs(dp.^2))));
+%ssqexpamp = sum(sum(sum(abs(dp.^2))));
 
 if isempty( findobj('Name', 'phasing'))
     hfig = figure;
@@ -70,7 +70,7 @@ for i=1:num
     A = fftn(D);
     
     %find a chi fit.
-    chi(chilen+i,1) = sum(sum(sum( (abs(A)-abs(dp)).^2))) / ssqexpamp ;
+    chi(chilen+i,1) = sum(sum(sum( (abs(A)-abs(dp)).^2))) / numel(dp) ;
     figure(hchi);
     plot([1:length(chi)], log10(chi));
     title(['chi fit is ' num2str(chi(i,1))]);
