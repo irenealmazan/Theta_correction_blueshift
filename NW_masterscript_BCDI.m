@@ -147,7 +147,7 @@ if flagContinue == 0
         
     else
         
-        load('Original_Sample');
+        load('../results_files/Original_Sample');
     end
     
     if(addNWstrain)
@@ -170,11 +170,11 @@ if flagContinue == 0
     if initialGuess == 1
         ER_HIO;
     elseif initialGuess == 3
-        load('ER_HIO_initial_guess');            
+        load('../results_files/ER_HIO_initial_guess');            
     end
     
     if smoothSupportFlag == 3
-        load('ER_HIO_initial_guess');            
+        load('../results_files/ER_HIO_initial_guess');            
     end
     
 else

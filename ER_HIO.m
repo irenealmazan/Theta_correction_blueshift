@@ -15,15 +15,13 @@ if flagERHIOinitial == 1
     
 else
    [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);   
-   [Psi_mod_rho,rock_rho] = DiffractionPatterns.calc_rock_curve_2DFT(rho,probe,angles_list,ki_o,kf_o,kf_o-ki_o,X,Y,Z);
-   [~,~,dp_rho] = Phretrieval_functions.prepare_data_ER_HIO(rho,Psi_mod_rho);   
-
-   newobj.object = ifftn(dp_rho) ;
+   [FT_rho] = DiffractionPatterns.From2DFT_to_3DFT(rho,data_exp);
+   
     
 end
 
-er_iter = 60;
-[retrphase newobj] = erred3( sqrt(dp), support_new, er_iter, 10, newobj);
+er_iter = 200;
+[retrphase newobj] = erred3( sqrt(dp), support_new, er_iter, 100, newobj);
 
 mod_object = abs(newobj.object);
 support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
