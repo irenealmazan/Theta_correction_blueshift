@@ -40,7 +40,11 @@ if flagContinue == 0
          case 1
              support = abs(NW);
          case 2
-             load('ER_HIO_initial_guess');            
+             support_3DFT = support_new;
+             support_2DFT = DiffractionPatterns.From3DFT_to_2DFT(support_3DFT,angles_list,probe,ki_o,kf_o,X,Y,Z);
+             support = (support_2DFT > 0.1*max(support_2DFT(:)));
+         case 3
+             load('ER_HIO_initial_guess');
              support_3DFT = support_new;
              support_2DFT = DiffractionPatterns.From3DFT_to_2DFT(support_3DFT,angles_list,probe,ki_o,kf_o,X,Y,Z);
              support = (support_2DFT > 0.1*max(support_2DFT(:)));
@@ -56,7 +60,6 @@ if flagContinue == 0
             scale_fact = sqrt(mncntrate/mn);
             rho = rho_ini.*scale_fact ;
         case 1
-            load('ER_HIO_initial_guess');
             rho_3DFT= (ifftn(newobj.dp));
             rho_ini = DiffractionPatterns.From3DFT_to_2DFT(rho_3DFT,angles_list,probe,ki_o,kf_o,X,Y,Z);
             rho = rho_ini.*support;
@@ -66,7 +69,11 @@ if flagContinue == 0
             rho_ini = ones(Npix,Npix,depth).* exp(i*2*pi*rand(Npix,Npix,depth)).* support;
             [scale_fact] = Phretrieval_functions.ini_guess_scalefactor(probe, rho_ini,angles_list, data_exp,ki_o,kf_o,X,Y,Z);
             rho = rho_ini.*scale_fact ;
-            
+         case 3
+            load('ER_HIO_initial_guess');
+            rho_3DFT= (ifftn(newobj.dp));
+            rho_ini = DiffractionPatterns.From3DFT_to_2DFT(rho_3DFT,angles_list,probe,ki_o,kf_o,X,Y,Z);
+            rho = rho_ini.*support;            
     end
   
    

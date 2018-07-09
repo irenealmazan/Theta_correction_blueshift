@@ -49,15 +49,7 @@ switch addAngJitter
         display('ADDING AN ALREADY GENERATED ANGULAR JITTER')    
 end
 
-smoothSupportFlag = 2;
-switch (smoothSupportFlag)
-    case 0
-        display('USING A SMOOTH SUPPORT')
-    case 1
-        display('USING EXACT SUPPORT')
-    case 2
-        display('USING ER_HIO SUPPORT')
-end
+
 
 
 plotdqshift = 0; 
@@ -65,7 +57,7 @@ if(plotdqshift)
     display('PLOTTING DQ ROCKING CURVE'); 
 end
 
-plotResults = 0;
+plotResults = 1;
 if(plotResults)
    display('PLOTTING RESULTS') 
 end
@@ -77,14 +69,37 @@ else
     display('USING REAL DATA')
 end
 
+
+flagERHIOinitial = 0;
+switch flagERHIOinitial
+    case 0
+        display('USE ER_HIO TO REFINE THE SUPPORT')
+    case 1
+        display('USE ER_HIO TO CREATE INITIAL GUESS FROM SCRATCH')       
+end
+
 initialGuess = 1;
 switch initialGuess 
     case 0
          display('USING TRUE OBJECT');
     case 1
-        display('USING ER/HIO ROUTINE TO FIND  GOOD INITIAL GUESS');
+        display('USING ER/HIO ROUTINE TO FIND  GOOD INITIAL GUESS')
     case 2
        display('USING RANDOM INITIAL GUESS');
+    case 3
+        display('USING AN ALREADY GENERATED INITIAL GUESS')
+end
+
+smoothSupportFlag = 3;
+switch (smoothSupportFlag)
+    case 0
+        display('USING A SMOOTH SUPPORT')
+    case 1
+        display('USING EXACT SUPPORT')
+    case 2
+        display('USING ER_HIO SUPPORT')
+    case 3
+        display('USING AN ALREADY CREATED ER_HIO SUPPORT')
 end
 
 flagErrorCompare = 0;
@@ -92,7 +107,7 @@ if flagErrorCompare
    display('Comparison between ER/HIO and ER2DFT errors') 
 end
 
-flagContinue = 1;
+flagContinue = 0;
 if flagContinue == 0
     display('STARTING A NEW PHASE RETRIEVAL OPERATION');
     
@@ -159,6 +174,12 @@ if flagContinue == 0
     %%
     if initialGuess == 1
         ER_HIO;
+    elseif initialGuess == 3
+        load('ER_HIO_initial_guess');            
+    end
+    
+    if smoothSupportFlag == 3
+        load('ER_HIO_initial_guess');            
     end
     
 else

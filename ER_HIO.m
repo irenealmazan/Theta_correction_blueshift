@@ -3,12 +3,24 @@
 
 % prepare data (matrix 3D):
 
-[~,sup_ini,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
-er_iter = 150;
-hio_iter = 100;
+if flagERHIOinitial == 1
+    [~,sup_ini,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
+    er_iter = 150;
+    hio_iter = 100;
+    
+    [retrphase newobj] = erred3( sqrt(dp), sup_ini, er_iter, 10, []);
+    
+    mod_object = abs(newobj.object);
+    support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
+    
+else
+  [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
+    newobj.object = ifftn(fftshift((fftn(rho)))) ;
+    
+end
 
-[retrphase newobj] = erred3( sqrt(dp), sup_ini, er_iter, 10, []);
-
+er_iter = 60;
+[retrphase newobj] = erred3( sqrt(dp), support_new, er_iter, 10, newobj);
 
 mod_object = abs(newobj.object);
 support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
