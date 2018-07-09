@@ -1,7 +1,7 @@
 % This script combines ER and HIO perforemd with the 3DFT in order to solve
 % the bcdi problem 
 
-% prepare data (matrix 3D):
+% prvepare data (matrix 3D):
 
 if flagERHIOinitial == 1
     [~,sup_ini,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
@@ -14,8 +14,11 @@ if flagERHIOinitial == 1
     support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
     
 else
-  [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
-    newobj.object = ifftn(fftshift((fftn(rho)))) ;
+   [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);   
+   [Psi_mod_rho,rock_rho] = DiffractionPatterns.calc_rock_curve_2DFT(rho,probe,angles_list,ki_o,kf_o,kf_o-ki_o,X,Y,Z);
+   [~,~,dp_rho] = Phretrieval_functions.prepare_data_ER_HIO(rho,Psi_mod_rho);   
+
+   newobj.object = ifftn(dp_rho) ;
     
 end
 

@@ -101,12 +101,7 @@ switch (smoothSupportFlag)
     case 3
         display('USING AN ALREADY CREATED ER_HIO SUPPORT')
 end
-
-flagErrorCompare = 0;
-if flagErrorCompare
-   display('Comparison between ER/HIO and ER2DFT errors') 
-end
-
+s
 flagContinue = 0;
 if flagContinue == 0
     display('STARTING A NEW PHASE RETRIEVAL OPERATION');

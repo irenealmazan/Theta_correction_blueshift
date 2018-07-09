@@ -68,10 +68,10 @@ classdef DiffractionPatterns
                 FT_Psij(jj).FT_Psij = fftshift(fftn(fftshift( Psij(jj).Psij)));
                 
                 % modulus square of the diffracted wave
-                Psi_mod(jj).Psi_mod =  FT_Psij(jj).FT_Psij.* conj(FT_Psij(jj).FT_Psij);
+                Psi_mod(jj).I =  FT_Psij(jj).FT_Psij.* conj(FT_Psij(jj).FT_Psij);
                 
                 % integrated intensity:
-                rock_curve(jj) = sum(sum(Psi_mod(jj).Psi_mod));
+                rock_curve(jj) = sum(sum(Psi_mod(jj).I));
                     %}
             end
             
