@@ -4,7 +4,7 @@ warning off;
 
 
 %addpath(genpath('/Users/ialmazn/Box Sync/Nanowire_ptychography/NSLS II/NSLS II March 2017/Analysis_end_of_beamtime'));
-addpath(genpath('./m_scripts/'))
+addpath(genpath('./m_scripts/'));
 addpath(genpath('./calc_functions'));
 %addpath(genpath('./display_functions'));
 
@@ -101,8 +101,9 @@ switch (smoothSupportFlag)
     case 3
         display('USING AN ALREADY CREATED ER_HIO SUPPORT')
 end
-s
-flagContinue = 0;
+
+flagContinue = 1;
+
 if flagContinue == 0
     display('STARTING A NEW PHASE RETRIEVAL OPERATION');
     

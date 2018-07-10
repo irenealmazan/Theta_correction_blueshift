@@ -46,7 +46,7 @@ if flagContinue == 0
          case 3             
              support_3DFT = support_new;
              support_2DFT = DiffractionPatterns.From3DFT_to_2DFT(support_3DFT,angles_list,probe,ki_o,kf_o,X,Y,Z);
-             support = (support_2DFT > 0.1*max(support_2DFT(:)));
+             support = (support_2DFT > 0.6*max(support_2DFT(:)));
      end
      
     

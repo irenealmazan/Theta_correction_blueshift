@@ -68,7 +68,7 @@ classdef GeneralGradient
                 
                 % calculate the gradient:
                 
-                grad_theta = (1 -sqrt(data(jj).I./(Psi_mod(jj).Psi_mod))).* Im_Psij_deriv_theta; %%%% NEW
+                grad_theta = (1 -sqrt(data(jj).I./(Psi_mod(jj).I))).* Im_Psij_deriv_theta; %%%% NEW
                 
                 grad_final_theta(jj) = -2*sum(sum(grad_theta))/(numel(grad_theta));
                 
