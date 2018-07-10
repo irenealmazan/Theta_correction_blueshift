@@ -24,6 +24,16 @@ classdef Phretrieval_functions
             end
         end
 
+        function [err,support_new] = optimize_support(rho,threshold,probe,data,angle_list,ki_o,kf_o,X,Y,Z)
+            
+            
+            
+            for jj = 1:numel(threshold)
+                 support_new = Phretrieval_functions.shrink_wrap_support(abs(rho),threshold(jj),X,Y,Z);
+                 err(jj) = DiffractionPatterns.calc_error_multiangle(probe,rho.*support_new,data,angle_list,ki_o,kf_o,X,Y,Z);
+            end
+            
+        end
          
         function [support] = make_support(corners,facet_spacing,edgepad)
             % This function calculates the dqshift connecting the diffraction
