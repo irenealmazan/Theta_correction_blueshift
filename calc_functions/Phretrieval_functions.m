@@ -193,7 +193,7 @@ classdef Phretrieval_functions
             
         end
         
-        function [dth_new,dq_shift, grad_final_theta,norm_grad_theta,beta] = theta_update(probe, rho,angles_list,data_exp,Niter_theta,error_0,tau_backtrack,beta_ini,counter_max,ki,kf,X,Y,Z)
+        function [dth_new,dq_shift, grad_final_theta,norm_grad_theta,beta] = theta_update(probe, rho,angles_list,data_exp,Niter_theta,error_0,tau_backtrack,beta_ini,counter_max,ki,kf,X,Y,Z,flagDebug)
             %%% this function calculates the gradient of the error metric with
             %%% respect to the position of the angles analytically, and
             %%% the correction theta  step
@@ -209,12 +209,14 @@ classdef Phretrieval_functions
             
             for ntheta = 1:Niter_theta
                                 
-                [grad_final_theta(ntheta,:)] = GeneralGradient.calc_grad_theta(probe, rho, data_exp, dth_new,ki,kf,X,Y,Z);
+                [grad_final_theta(ntheta,:)] = GeneralGradient.calc_grad_theta(probe, rho, data_exp, dth_new,ki,kf,X,Y,Z,flagDebug);
                 
                 
                 for ii = 1:numel(data_exp)%
                     grad_final_theta(ntheta,ii) = grad_final_theta(ntheta,ii)./sum(sum(data_exp(ii).I));
-                    display(['dth_new = ' num2str(dth_new(ii)) 'gradient = ' num2str(grad_final_theta(ntheta,ii))]);
+                    if flagDebug == 1
+                        display(['dth_new = ' num2str(dth_new(ii)) 'gradient = ' num2str(grad_final_theta(ntheta,ii))]);
+                    end
                 end
                 
                 % define the direction of the descent:
