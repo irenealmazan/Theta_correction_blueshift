@@ -14,34 +14,18 @@ if flagERHIOinitial == 1
     support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
     
 else
-<<<<<<< HEAD
-  [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
-    sup_ini = support;
-    er_iter = 200;
-    [retrphase newobj] = erred3( sqrt(dp), sup_ini, er_iter, 100, []);
-    
-    mod_object = abs(newobj.object);
-    support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
-   
-=======
     [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
     sup_ini = support;
     er_iter = 200;
     [retrphase newobj] = erred3( sqrt(dp), support_new, er_iter, 100, []);
->>>>>>> 08ecd690b34d9d1d616e6f9dce24f182160fb8c7
     
     mod_object = abs(newobj.object);
     support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);    
 end
 
 mod_object = abs(newobj.object);
-support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.2,X,Y,Z);
+support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
 
-<<<<<<< HEAD
-er_iter = 60;
-[retrphase newobj] = erred3( sqrt(dp), support_new, er_iter, 50, newobj);
-=======
->>>>>>> 08ecd690b34d9d1d616e6f9dce24f182160fb8c7
 
 
 er_iter = 20;
@@ -52,12 +36,8 @@ for kk = 1:3
 end
 
 hio_iter = 100;
-<<<<<<< HEAD
-[retrphase newobj] = hio3( sqrt(dp), support_new,hio_iter, 50, newobj, .7);
-=======
 
 [retrphase newobj] = hio3( sqrt(dp), support_new,hio_iter, 10, newobj, .7);
->>>>>>> 08ecd690b34d9d1d616e6f9dce24f182160fb8c7
 
 er_iter = 60;
 for kk = 1:3
