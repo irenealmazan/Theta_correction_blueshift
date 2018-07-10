@@ -75,7 +75,7 @@ if flagContinue == 0
     end
   
    
-     [err_ini] = DiffractionPatterns.calc_error_multiangle(probe, rho, data_exp,angles_list,ki_o,kf_o,X,Y,Z);
+     [err_ini] = DiffractionPatterns.calc_error_multiangle(probe, rho.*support, data_exp,angles_list,ki_o,kf_o,X,Y,Z);
     
     % initial value of the gradient in rho and theta, assumed to be zero
     norm_grad_rho = zeros(Niter_rho,1);
@@ -107,7 +107,7 @@ else
 end
 
 if plotResults
-    DisplayResults.show_rho_theta_update(5,errlist,rho,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1),beta_rho(1),norm_grad_theta(1),beta_theta(1),'Ini');
+    DisplayResults.show_rho_theta_update(5,errlist,rho.*support,midsl,angles_list,delta_thscanvals'+dth_disp,norm_grad_rho(1),beta_rho(1),norm_grad_theta(1),beta_theta(1),'Ini');
 end
 
 
@@ -121,12 +121,12 @@ for nrho = nrho_vect
 
     %RHO ITERATIONS
 
-    if(1)
+    if(0)
            
   
         [rho,beta_rho(nrho),norm_grad_rho(nrho),gPIEiter,direction_rho] = Phretrieval_functions.rho_update(probe, rho,gPIEiter,direction_rho,angles_list,support, nrho, data_exp,depth,errlist(end),freq_restart,tau_backtrack_rho,beta_ini_rho,counter_max_rho,ki_o,kf_o,X,Y,Z,ERflag(nrho));
         
-        [err] = DiffractionPatterns.calc_error_multiangle(probe, rho, data_exp,angles_list,ki_o,kf_o,X,Y,Z);
+        [err] = DiffractionPatterns.calc_error_multiangle(probe, rho.*support, data_exp,angles_list,ki_o,kf_o,X,Y,Z);
         fprintf('\n     error: %4.4d \n', err);
         errlist = [errlist err];
         
