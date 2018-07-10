@@ -24,12 +24,10 @@ classdef Phretrieval_functions
             end
         end
 
-        function [err,support_new] = optimize_support(rho,threshold,probe,data,angle_list,ki_o,kf_o,X,Y,Z)
-            
-            
+        function [err,support_new] = optimize_support(rho,threshold,FWHM_array,probe,data,angle_list,ki_o,kf_o,X,Y,Z)
             
             for jj = 1:numel(threshold)
-                 support_new = Phretrieval_functions.shrink_wrap_support(abs(rho),threshold(jj),X,Y,Z);
+                 support_new = Phretrieval_functions.shrink_wrap_support(abs(rho),threshold(jj),FWHM_array,X,Y,Z);
                  err(jj) = DiffractionPatterns.calc_error_multiangle(probe,rho.*support_new,data,angle_list,ki_o,kf_o,X,Y,Z);
             end
             
@@ -74,32 +72,30 @@ classdef Phretrieval_functions
             
         end
        
-         function [new_support] = shrink_wrap_support(mod_object,threshold,X,Y,Z)
+         function [new_support] = shrink_wrap_support(mod_object,threshold,FWHM_array,X,Y,Z)
             % this function updates the support by convolving the updated rho
             % with a gaussian function and then selecting the points which have
             % an intensity above a threshold
            
             
-           mod_object_blur = Phretrieval_functions.smooth_support(mod_object,X,Y,Z);
+           mod_object_blur = Phretrieval_functions.smooth_support(mod_object,FWHM_array,X,Y,Z);
            new_support = (mod_object_blur > threshold*max(mod_object_blur(:)));
             
         end
         
-        function [support_new] = smooth_support(support,X,Y,Z)
+        function [support_new] = smooth_support(support,FWHM_array,X,Y,Z)
             % this function updates the support by convolving the updated rho
             % with a gaussian function and then selecting the points which have
             % an intensity above a threshold
            
             
             [Npix_x,Npix_y,Npix_z] = size(X);
-            
-            threshold = 0.20; % 20% of the signal
-            
+                      
             support_fft = fftshift(fftn(fftshift(support)));
             
-            FWHM_x = 1e6;
-            FWHM_y = 1e6;
-            FWHM_z = 1e6;
+            FWHM_x = FWHM_array(1);
+            FWHM_y = FWHM_array(2);
+            FWHM_z = FWHM_array(3);
             
             gauss_to_convolve = exp(-FWHM_x.*X.^2/Npix_x-FWHM_y.*Y.^2/Npix_y-FWHM_z.*Z.^2/Npix_z);
             
