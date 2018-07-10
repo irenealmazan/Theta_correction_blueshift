@@ -145,7 +145,7 @@ for nrho = nrho_vect
     tic;
     if mod(nrho,freq_pos) == 0
 
-        [angles_list,dq_shift,grad_final_theta,norm_grad_theta(cnt_ntheta),beta_theta(cnt_ntheta)] = Phretrieval_functions.theta_update(probe, rho,angles_list,data_exp,Niter_theta,errlist(end),tau_backtrack_theta,beta_ini_theta,counter_max_theta,ki_o,kf_o,X,Y,Z);
+        [angles_list,dq_shift,grad_final_theta,norm_grad_theta(cnt_ntheta),beta_theta(cnt_ntheta)] = Phretrieval_functions.theta_update(probe, rho,angles_list,data_exp,Niter_theta,errlist(end),tau_backtrack_theta,beta_ini_theta,counter_max_theta,ki_o,kf_o,X,Y,Z,flagDebug);
 
         % store the updated theta list
         for ii = 1:numel(data_exp)%index_to_distort%

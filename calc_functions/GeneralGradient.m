@@ -29,7 +29,7 @@ classdef GeneralGradient
             end
         end
     
-        function [grad_final_theta] = calc_grad_theta(probe, rho, data, dth_nominal,ki,kf,X,Y,Z)
+        function [grad_final_theta] = calc_grad_theta(probe, rho, data, dth_nominal,ki,kf,X,Y,Z,flagDebug)
             % this function calculates the gradient of the error metric with
             % respect to theta. dth_delta = 0 if we are using the function to
             % refine the angular position.    
@@ -43,7 +43,7 @@ classdef GeneralGradient
             %[dq_shift_deriv] = DiffractionPatterns.calc_dq_deriv_analytical(dth_nominal,ki,kf,qbragg);
              
             % display the derivative of dq_shift
-            if 0
+            if flagDebug == 1
                 for jj = [1:round(numel(dth_nominal)/5):numel(dth_nominal)]
                     h2(jj).h = DisplayFunctions.display_calc_dqshift_deriv(dth_nominal(jj),dq_shift_deriv(jj,:),dq_shift(jj,:),ki,kf,30+jj,'analitically');
                 end
