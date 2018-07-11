@@ -121,7 +121,7 @@ for nrho = nrho_vect
 
     %RHO ITERATIONS
 
-    if(0)
+    if(1)
            
   
         [rho,beta_rho(nrho),norm_grad_rho(nrho),gPIEiter,direction_rho] = Phretrieval_functions.rho_update(probe, rho,gPIEiter,direction_rho,angles_list,support, nrho, data_exp,depth,errlist(end),freq_restart,tau_backtrack_rho,beta_ini_rho,counter_max_rho,ki_o,kf_o,X,Y,Z,ERflag(nrho));
@@ -170,7 +170,7 @@ for nrho = nrho_vect
     end
     
     if mod(nrho,freq_store) == 0
-        save('./results.mat');
+        save('../results_files/results.mat');
         display(['saving at iteration ' num2str(nrho)])
     end
 
