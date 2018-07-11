@@ -104,6 +104,10 @@ else
     norm_grad_theta = [norm_grad_theta;zeros(round(Niter_rho/freq_pos),1)];
     beta_theta = [beta_theta;zeros(round(Niter_rho/freq_pos),1)];
 
+    % remultiply rho by support: 1) if support remained unchanged, then
+    % this won't make any change. 2) if the support has changed
+    % (shrink-wrap) then it should provide a sort of new rho_ini
+    rho = rho.*support;
 end
 
 if plotResults

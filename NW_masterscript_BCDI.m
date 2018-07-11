@@ -57,7 +57,7 @@ if(plotdqshift)
     display('PLOTTING DQ ROCKING CURVE'); 
 end
 
-plotResults = 0;
+plotResults = 1;
 if(plotResults)
    display('PLOTTING RESULTS') 
 end
