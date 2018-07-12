@@ -35,7 +35,7 @@ end
  
 for ii = 1:numel(delta_thscanvals)
     
-     mxI(ii) = max(simI(ii).Psi_mod(:));
+     mxI(ii) = max(simI(ii).I(:));
      
      im_sum_sim = im_sum_sim + simI(ii).Psi_mod;    
     
