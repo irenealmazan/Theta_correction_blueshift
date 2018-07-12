@@ -343,7 +343,7 @@ classdef FiguresForPaper
             
         end
         
-        function [Psi_mod_matrix] = display_slice_dp(rho,probe,angles_list,ki,kf,d2_bragg,thBragg,X,Y,Z,fig_num)
+        function [Psi_mod_matrix] = display_slice_dp(rho,probe,angles_list,slice_array ,ki,kf,d2_bragg,thBragg,X,Y,Z,fig_num)
             
             Npix = size(X,1);
             depth = size(X,3);
@@ -359,7 +359,7 @@ classdef FiguresForPaper
             [Psi_mod,~,~,FT_Psij,~] = DiffractionPatterns.calc_dp(dqshift,probe,rho,X,Y,Z);
             
             for jj = 1:numel(Psi_mod)
-               Psi_mod_matrix(:,:,jj) = Psi_mod(jj).Psi_mod; 
+               Psi_mod_matrix(:,:,jj) = Psi_mod(jj).I; 
             end
             
             figure(fig_num);
@@ -423,7 +423,7 @@ classdef FiguresForPaper
             
             
             hold on;
-            h_Psi2 =  di(Psi_mod_matrix./max(Psi_mod_matrix(:)),7e-4,'g',X_recip,Y_recip,Z_recip);
+            h_Psi2 =  di(Psi_mod_matrix./max(Psi_mod_matrix(:)),2e-4,'g',X_recip,Y_recip,Z_recip);
             
 %             [X_recip_toplot Y_recip_toplot Z_recip_toplot] = meshgrid([-Npix/2 Npix/2-1].*2*pi/(Npix*d2_bragg), ...
 %                 [-Npix/2 Npix/2-1].*2*pi/(Npix*d2_bragg),...
@@ -432,7 +432,7 @@ classdef FiguresForPaper
 %             scatter3(X_recip_toplot(:),Y_recip_toplot(:),Z_recip_toplot(:));
             
             
-            for jj=[1:floor(round(numel(angles_list)/4)):numel(angles_list)]
+            for jj = slice_array 
                 
                 subplot(121);
                 hold on;
@@ -460,7 +460,7 @@ classdef FiguresForPaper
                 axis image;
                 %hold off;
                 
-                quiver3(rotpos.x(1),rotpos.y(1),rotpos.z(1),dqshift(jj,1),dqshift(jj,2),dqshift(jj,3), 'r','LineWidth',3,'ShowArrowHead','on');
+                %quiver3(rotpos.x(1),rotpos.y(1),rotpos.z(1),dqshift(jj,1),dqshift(jj,2),dqshift(jj,3), 'r','LineWidth',3,'ShowArrowHead','on');
 
             end
             

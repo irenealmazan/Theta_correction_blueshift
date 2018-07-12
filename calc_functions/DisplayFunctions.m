@@ -30,18 +30,18 @@ classdef DisplayFunctions
             %h=di(angle(rho), -.5, 'y', X,Y,Z); alpha(h,.5);
             isosurface( ...
                 X,Y,Z, ...
-                smooth3( abs(rho), 'gaussian', 9 ), 0.5, ...
+                smooth3( abs(rho), 'gaussian', 9 ), .9, ...
                 smooth3( angle( rho ), 'gaussian', 9 ) );
             
             % the wavevectors
-            quiver3(0,0,0, ki(1), ki(2), ki(3), 'r');
-            quiver3(0,0,0, kf(1), kf(2), kf(3), 'k');
-            quiver3(0,0,0, qbragg(1), qbragg(2), qbragg(3), 'b');
-            
+%             quiver3(0,0,0, ki(1), ki(2), ki(3), 'r');
+%             quiver3(0,0,0, kf(1), kf(2), kf(3), 'k');
+%             quiver3(0,0,0, qbragg(1), qbragg(2), qbragg(3), 'b');
+%             
             % the detector 
-            [Xd Yd] = meshgrid([-.1 .1]);
-            surf(Xd,Yd,ones(size(Xd)));
-            view(-2,53);
+%             [Xd Yd] = meshgrid([-.1 .1]);
+%             surf(Xd,Yd,ones(size(Xd)));
+%             view(-2,53);
             
             xlabel('x');
             ylabel('y'); 

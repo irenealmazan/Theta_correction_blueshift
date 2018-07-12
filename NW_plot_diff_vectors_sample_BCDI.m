@@ -13,5 +13,5 @@ Z_square_toplot = Z_square(:);
 
 fig_num = 3;
 figure(fig_num);
-DisplayFunctions.display_diff_geom(NW,ki,kf,qbragg,fig_num,X,Y,Z)
+DisplayFunctions.display_diff_geom(NW,ki,kf,qbragg,fig_num,X,Y,Z);
 
