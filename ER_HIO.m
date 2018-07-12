@@ -11,8 +11,7 @@ if flagERHIOinitial == 1
     [retrphase newobj] = erred3( sqrt(dp), sup_ini, er_iter, 10, []);
     
     mod_object = abs(newobj.object);
-    support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,X,Y,Z);
-    
+    support_new = Phretrieval_functions.shrink_wrap_support(mod_object,0.1,[1 1 1]*1e6,X,Y,Z);    
 else
     [~,~,dp] = Phretrieval_functions.prepare_data_ER_HIO(NW,data_exp);
     sup_ini = support;
