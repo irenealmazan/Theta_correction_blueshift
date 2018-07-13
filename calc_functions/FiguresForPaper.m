@@ -275,15 +275,14 @@ classdef FiguresForPaper
             
         end
         
-        function err_final = calculate_error_realspace(matrix_3DFT,rho_original)
-           
-            err_final = 0;
-            for jj = 1:numel(matrix_3DFT)
-                error_2D(:,:,jj) = (matrix_3DFT(jj_idnex).matrix(:,:,jj)-rho_original(:,:,jj)).^2
-                error_2D_sum = sum(sum(error_2D))./numel(error_2D(:,:,jj));
-                
-                err_final = err_final + error_2D_sum;
-            end
+        function err_final = calculate_error_realspace(rho_original,rho_final,slice,dimension,fignum)
+            
+            DisplayResults.compare_two_objects(rho_original,rho_final,'rho original','rho final',[40 90 40 90],slice,dimension,fignum);
+            
+            error_3D = (rho_final-rho_original);
+            error_3D_mod = error_3D(:)'*error_3D(:);
+            err_final = error_3D_mod/numel(error_3D);
+            
         end
         
         function [] = display_Figure1(matrix_3DFT,angshift_percentage,mncrate,index_to_plot,fig_num)
