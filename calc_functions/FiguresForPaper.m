@@ -275,11 +275,21 @@ classdef FiguresForPaper
             
         end
         
-        function err_final = calculate_error_realspace(rho_original,rho_final,slice,dimension,fignum)
+        function err_final = calculate_error_realspace(rho_original,rho_final,slice,dimension,fignum,angles_list,ki,kf,qbragg,d2_bragg,X,Y,Z)
             
-            DisplayResults.compare_two_objects(rho_original,rho_final,'rho original','rho final',[40 90 40 90],slice,dimension,fignum);
+            Npix = size(X,1);
+            depth = size(X,3);
             
-            error_3D = (rho_final-rho_original);
+             % calculate a list of momentum transfers:
+            [dqshift] = DiffractionPatterns.calc_dqshift_for_given_th(angles_list,ki,kf,qbragg);
+            
+            [X_recip,Y_recip,Z_recip, qz_pixel_size] = DiffractionPatterns.calc_reciprocal_space(dqshift,Npix,depth,d2_bragg);
+           
+            [autocorr,rho_final_shift] = DiffractionPatterns.calc_autocorr_shift_object(rho_original,rho_final,X,Y,Z,X_recip,Y_recip,Z_recip);
+           
+            DisplayResults.compare_two_objects(rho_original,rho_final_shift,'rho original','rho final',[40 90 40 90],slice,dimension,fignum);
+            
+            error_3D = (rho_final_shift-rho_original);
             error_3D_mod = error_3D(:)'*error_3D(:);
             err_final = error_3D_mod/numel(error_3D);
             

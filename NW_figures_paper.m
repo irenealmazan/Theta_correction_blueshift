@@ -33,5 +33,7 @@ DisplayFunctions.display_diff_geom(NW,ki,kf,qbragg,fig_num,X,Y,Z);
 
 %%%%%%%%% calculation of the errors in the real space:
 
-err_final = FiguresForPaper.calculate_error_realspace(NW,flipdim(flipdim(rho,3),2),[65],'3',16);
-err_ERHIO = FiguresForPaper.calculate_error_realspace(NW,flipdim(flipdim(rho_ini,3),2),[65],'3',17);
+rho_conj = ifftn(conj(fftn(rho))); % correct for the flip
+
+err_final = FiguresForPaper.calculate_error_realspace(NW*sqrt(mncntrate/mn),rho_conj,[65],'1',16,delta_thscanvals,ki_o,kf_o,kf_o-ki_o,d2_bragg,X,Y,Z);
+err_ERHIO = FiguresForPaper.calculate_error_realspace(NW*sqrt(mncntrate/mn),flipdim(flipdim(rho_ini,3),2),[65],'1',17);
